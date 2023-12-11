@@ -23,6 +23,7 @@ class MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Park me Angers"),
         backgroundColor: Colors.cyan,
         foregroundColor: Colors.white,
@@ -44,15 +45,15 @@ class MyHomeState extends State<MyHome> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            label: 'Map',
+            label: 'Carte',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Accueil',
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.list),
-              label: 'List'
+              label: 'Liste des parkings',
           )],
       ),
     );
