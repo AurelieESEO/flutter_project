@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../services/airQualityService.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -8,17 +10,18 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  final String apiAirQualityKey = 'YOUR_API_KEY';
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body:
       Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 50),
-            Text(
+            const SizedBox(height: 50),
+            const Text(
               'Bienvenue sur\nPark me Angers',
               style: TextStyle(
                 fontSize: 30,
@@ -26,42 +29,80 @@ class HomePageState extends State<HomePage> {
                 color: Colors.cyan
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Column(
               children: [
-                Text(
+                const Text(
                   'Qualité de l\'air',
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w200,
+                    fontWeight: FontWeight.w300,
                     color: Colors.cyan
                   ),
                 ),
-                // display local air quality
-
+                const SizedBox(height: 15),
+                FutureBuilder(
+                  future: AirQualityService().getAirQuality(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            snapshot.data!['results'][0]['sous_indice_2_polluant'].toString(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w100,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: getAirQualityColor(int.parse(snapshot.data!['results'][0]['sous_indice_2_polluant'])),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            getAirQuality(int.parse(snapshot.data!['results'][0]['sous_indice_2_polluant'])),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w100,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+                    return const CircularProgressIndicator();
+                  },
+                ),
               ],
             ),
-            SizedBox(height: 20),
-            Column(
+            const SizedBox(height: 20),
+            const Column(
               children: [
                 Text(
                   'Météo',
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w200,
+                    fontWeight: FontWeight.w300,
                     color: Colors.cyan
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Column(
+            const SizedBox(height: 20),
+            const Column(
               children: [
                 Text(
                   'Parkings les plus proches',
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w200,
+                    fontWeight: FontWeight.w300,
                     color: Colors.cyan
                   ),
                 ),
@@ -71,5 +112,37 @@ class HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Color getAirQualityColor(int index) {
+    if (index <= 50) {
+      return Colors.green;
+    } else if (index <= 100) {
+      return Colors.yellow;
+    } else if (index <= 150) {
+      return Colors.orange;
+    } else if (index <= 200) {
+      return Colors.red;
+    } else if (index <= 300) {
+      return Colors.purple;
+    } else {
+      return Colors.brown;
+    }
+  }
+
+  String getAirQuality(int index) {
+    if (index <= 50) {
+      return 'Bon';
+    } else if (index <= 100) {
+      return 'Moyen';
+    } else if (index <= 150) {
+      return 'Mauvais pour les sensibles';
+    } else if (index <= 200) {
+      return 'Mauvais';
+    } else if (index <= 300) {
+      return 'Très mauvais';
+    } else {
+      return 'Dangereux';
+    }
   }
 }
