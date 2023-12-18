@@ -14,7 +14,61 @@ class HomePageState extends State<HomePage> {
     return const Scaffold(
       body:
       Center(
-        child: Text("vue home"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 50),
+            Text(
+              'Bienvenue sur\nPark me Angers',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w300,
+                color: Colors.cyan
+              ),
+            ),
+            SizedBox(height: 20),
+            Column(
+              children: [
+                Text(
+                  'Qualité de l\'air',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.cyan
+                  ),
+                ),
+                // display local air quality
+
+              ],
+            ),
+            SizedBox(height: 20),
+            Column(
+              children: [
+                Text(
+                  'Météo',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.cyan
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Column(
+              children: [
+                Text(
+                  'Parkings les plus proches',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.cyan
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
