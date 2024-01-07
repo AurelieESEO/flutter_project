@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/ui/screens/my_home.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 void main() {
   // To use the SharePreferences before the runApp() method
