@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/airQualityService.dart';
+import '../../services/air_quality_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
