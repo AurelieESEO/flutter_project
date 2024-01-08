@@ -10,7 +10,7 @@ class MapPage extends StatelessWidget {
     return Scaffold(
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(47.473611, -0.554722), // coordonnées d'Angers
+          center: LatLng(47.473611, -0.554722), // coordinates of Angers
           zoom: 13.0,
         ),
         layers: [
