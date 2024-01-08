@@ -4,7 +4,7 @@ import 'package:flutter_project/models/parking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesRepository {
-  Future<void> saveCompanies(List<Parking> parkings) async {
+  Future<void> saveParkings(List<Parking> parkings) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String> listJson = [];
     for (final Parking parking in parkings) {
@@ -13,12 +13,13 @@ class PreferencesRepository {
     prefs.setStringList('parkings', listJson);
   }
 
-  Future<List<Parking>> loadCompanies() async {
+  Future<List<Parking>> loadParkings() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<Parking> parkings = [];
 
-    final listJson = prefs.getStringList('companies') ?? [];
+    final listJson = prefs.getStringList('parkings') ?? [];
     for (final String json in listJson) {
+      print(jsonDecode(json));
       parkings.add(Parking.fromJson(jsonDecode(json)));
     }
 

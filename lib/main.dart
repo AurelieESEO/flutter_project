@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/blocks/parking_cubit.dart';
+import 'package:flutter_project/services/preferences.dart';
 import 'package:flutter_project/ui/screens/my_home.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 void main() {
   // To use the SharePreferences before the runApp() method
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-    const MyApp(),
-  );
+  // Instanciation du Cubit
+  final ParkingCubit parkingCubit = ParkingCubit(PreferencesRepository());
+
+  // Chargement des entreprises
+  parkingCubit.loadParkings();
+
+  runApp(BlocProvider<ParkingCubit>(
+    create: (_) => parkingCubit,
+    child: const MyApp(),
+  ));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

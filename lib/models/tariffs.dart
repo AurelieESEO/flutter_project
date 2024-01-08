@@ -1,23 +1,16 @@
 class Tariffs {
-  String tariffPmr;
+  String? tariffPmr;
   double tariff1H;
   double tariff2H;
   double tariff3H;
   double tariff4H;
   double tariff24H;
-  double tariffResident;
-  double tariffNonResident;
+  int? tariffResident;
+  int? tariffNonResident;
 
-  Tariffs(
-      this.tariffPmr,
-      this.tariff1H,
-      this.tariff2H,
-      this.tariff3H,
-      this.tariff4H,
-      this.tariff24H,
-      this.tariffResident,
-      this.tariffNonResident
-  );
+  Tariffs(this.tariff1H, this.tariff2H, this.tariff3H,
+      this.tariff4H, this.tariff24H,
+      {this.tariffPmr, this.tariffResident, this.tariffNonResident});
 
   Map<String, dynamic> toJson() {
     return {
@@ -34,14 +27,13 @@ class Tariffs {
 
   factory Tariffs.fromJson(Map<String, dynamic> json) {
     return Tariffs(
-        json['tariffPmr'],
         json['tariff1H'],
         json['tariff2H'],
         json['tariff3H'],
         json['tariff4H'],
         json['tariff24H'],
-        json['tariffResident'],
-        json['tariffNonResident']
-    );
+        tariffPmr: json['tariffPmr'],
+        tariffResident: json['tariffResident'],
+        tariffNonResident: json['tariffNonResident']);
   }
 }

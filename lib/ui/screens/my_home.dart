@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/blocks/parking_cubit.dart';
+import 'package:flutter_project/models/parking.dart';
 import 'package:flutter_project/ui/screens/home.dart';
 import 'package:flutter_project/ui/screens/list.dart';
 import 'package:flutter_project/ui/screens/map.dart';
@@ -28,9 +31,18 @@ class MyHomeState extends State<MyHome> {
         backgroundColor: Colors.cyan,
         foregroundColor: Colors.white,
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
+      body: BlocBuilder<ParkingCubit, List<Parking>>(
+        builder: (context, parkings) {
+          if (parkings.isEmpty) {
+            return IndexedStack(
+              index: _currentIndex,
+              children: _pages,
+            );
+          } else {
+            // S'il y a des parkings, affichez autre chose, ou null si rien n'est nécessaire ici.
+            return Container(); // Remplacez cela par votre widget approprié.
+          }
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -52,9 +64,10 @@ class MyHomeState extends State<MyHome> {
             label: 'Accueil',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: 'Liste des parkings',
-          )],
+            icon: Icon(Icons.list),
+            label: 'Liste des parkings',
+          ),
+        ],
       ),
     );
   }

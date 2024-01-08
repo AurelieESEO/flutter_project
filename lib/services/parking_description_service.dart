@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_project/services/parking_disponibilities_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/parking.dart';
@@ -22,13 +23,17 @@ class ParkingDescriptionService {
         final List<dynamic> results = json['results'];
         // Transformation de chaque "feature" en objet de type "Address"
         for (Map<String, dynamic> result in results) {
+
+          int? nbAvailablePlaces = await ParkingDisponibilitiesService()
+              .getSpecificParkingDisponibilities(result['id_parking']);
           final Parking parking = Parking.fromApiJson(result);
-          parking.add(parking);
+          parking.nbAvailableSpaces = nbAvailablePlaces;
+          parkings.add(parking);
         }
       }
       return parkings;
     } else {
-      throw Exception('Failed to load air quality data');
+      throw Exception('Failed to load parkings description data');
     }
   }
 
