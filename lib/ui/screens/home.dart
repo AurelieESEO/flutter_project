@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../services/airQualityService.dart';
+import '../../services/meteoService.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,24 +21,36 @@ class HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 50),
-            const Text(
-              'Bienvenue sur\nPark me Angers',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w300,
-                color: Colors.cyan
+            Container(
+              width: double.infinity,
+              color: Colors.white38,
+              padding: const EdgeInsets.all(20),
+              child: const Text(
+                'Bienvenue sur\nPark me Angers ! 🅿️🏰',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.cyan
+                ),
               ),
             ),
-            const SizedBox(height: 20),
+            const Divider(
+              height: 10,
+              thickness: 1,
+              indent: 20,
+              endIndent: 20,
+              color: Colors.cyan,
+            ),
+            const SizedBox(height: 10),
             Column(
               children: [
                 const Text(
-                  'Qualité de l\'air',
+                  ' Qualité de l\'air 🌬️ ',
                   style: TextStyle(
+                    backgroundColor: Colors.cyan,
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
-                    color: Colors.cyan
+                    color: Colors.white
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -82,28 +95,148 @@ class HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             const Column(
               children: [
                 Text(
-                  'Météo',
+                  ' Météo 🌤️ ',
                   style: TextStyle(
+                    backgroundColor: Colors.cyan,
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
-                    color: Colors.cyan
+                    color: Colors.white
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
+            FutureBuilder(
+              future: MeteoService().getMeteo(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    snapshot.data!['current']['temperature'].toString(),
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    '°C',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    snapshot.data!['current']['feelslike'].toString(),
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w100,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    '°C',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w100,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          ],
+                        ),
+                        const SizedBox(width: 20),
+                        Image.network(
+                          snapshot.data!['current']['weather_icons'][0],
+                          width: 75,
+                          height: 75,
+                        ),
+                        const SizedBox(width: 20),
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  snapshot.data!['current']['wind_speed'].toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                const Text(
+                                  'km/h',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const SizedBox(width: 10),
+                                Text(
+                                  snapshot.data!['current']['wind_dir'].toString(),
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w100,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        getMessage(snapshot.data!['current']['is_day']),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w100,
+                        ),
+                      )
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+            const SizedBox(height: 50),
             const Column(
               children: [
                 Text(
-                  'Parkings les plus proches',
+                  ' Places les plus proches 🚗 ',
                   style: TextStyle(
+                    backgroundColor: Colors.cyan,
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
-                    color: Colors.cyan
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -143,6 +276,14 @@ class HomePageState extends State<HomePage> {
       return 'Très mauvais';
     } else {
       return 'Dangereux';
+    }
+  }
+
+  String getMessage(String isDay) {
+    if (isDay == "yes") {
+      return 'Passez une bonne journée ! 🌞';
+    } else {
+      return 'Passez une bonne soirée ! 🌛';
     }
   }
 }
