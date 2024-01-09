@@ -16,7 +16,6 @@ class MyHome extends StatefulWidget {
 class MyHomeState extends State<MyHome> {
   int _currentIndex = 1;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +27,7 @@ class MyHomeState extends State<MyHome> {
       ),
       body: BlocBuilder<ParkingCubit, List<Parking>>(
         builder: (context, parkings) {
-          if(parkings.isEmpty) {
+          if (parkings.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -36,7 +35,9 @@ class MyHomeState extends State<MyHome> {
             return IndexedStack(
               index: _currentIndex,
               children: [
-                MapPage(parkings: parkings),
+                MapPage(
+                    parkings: parkings,
+                    parkingCubit: context.read<ParkingCubit>()),
                 HomePage(parkings: parkings),
                 ListPage(parkings: parkings),
               ],

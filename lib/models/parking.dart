@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter_project/models/tariffs.dart';
-import 'package:flutter_project/services/parking_disponibilities_service.dart';
 import 'package:latlong2/latlong.dart';
 
 class Parking {
@@ -114,8 +111,8 @@ class Parking {
   }
 
   factory Parking.fromApiJson(Map<String, dynamic> json) {
-    Tariffs tariffs = Tariffs(json['tarif_1h'],
-        json['tarif_2h'], json['tarif_3h'], json['tarif_4h'], json['tarif_24h'],
+    Tariffs tariffs = Tariffs(json['tarif_1h'], json['tarif_2h'],
+        json['tarif_3h'], json['tarif_4h'], json['tarif_24h'],
         tariffPmr: json['tarif_pmr'],
         tariffResident: json['abo_resident'],
         tariffNonResident: json['abo_non_resident']);
@@ -145,6 +142,4 @@ class Parking {
         nbSharingCarsSpaces: json['nb_autopartage'],
         nbCarpoolSpaces: json['nb_covoit']);
   }
-
-  void add(Parking parking) {}
 }
