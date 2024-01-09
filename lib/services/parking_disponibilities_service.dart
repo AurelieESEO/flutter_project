@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class ParkingDisponibilitiesService {
-  final String endpointAllParkings = 'https://data.angers.fr/api/explore/v2.1/catalog/'
+  final String endpointAllParkings =
+      'https://data.angers.fr/api/explore/v2.1/catalog/'
       'datasets/parking-angers/records?limit=20';
 
   ParkingDisponibilitiesService();
@@ -17,7 +19,6 @@ class ParkingDisponibilitiesService {
     }
   }
 
-
   Future<int?> getSpecificParkingDisponibilities(String parkingName) async {
     parkingName.replaceAll(" ", "%20");
     String endpoint = 'https://data.angers.fr/api/explore/v2.1/catalog/'
@@ -27,10 +28,10 @@ class ParkingDisponibilitiesService {
     final response = await http.get(Uri.parse(endpoint));
     if (response.statusCode == 200) {
       final Map<String, dynamic> json = jsonDecode(response.body);
-      if( json.containsKey("results")) {
+      if (json.containsKey("results")) {
         final List<dynamic> results = json['results'];
         for (Map<String, dynamic> result in results) {
-          if(result['nom'] == parkingName) {
+          if (result['nom'] == parkingName) {
             return result['disponible'] as int;
           }
         }
