@@ -16,11 +16,6 @@ class MyHome extends StatefulWidget {
 class MyHomeState extends State<MyHome> {
   int _currentIndex = 1;
 
-  final List<Widget> _pages = [
-    const MapPage(),
-    const HomePage(),
-    const ListPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +28,19 @@ class MyHomeState extends State<MyHome> {
       ),
       body: BlocBuilder<ParkingCubit, List<Parking>>(
         builder: (context, parkings) {
-          if (parkings.isEmpty) {
-            return IndexedStack(
-              index: _currentIndex,
-              children: _pages,
+          if(parkings.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           } else {
-            // S'il y a des parkings, affichez autre chose, ou null si rien n'est nécessaire ici.
-            return Container(); // Remplacez cela par votre widget approprié.
+            return IndexedStack(
+              index: _currentIndex,
+              children: [
+                MapPage(parkings: parkings),
+                HomePage(parkings: parkings),
+                ListPage(parkings: parkings),
+              ],
+            );
           }
         },
       ),

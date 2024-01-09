@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/models/parking.dart';
 
 class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
+  const ListPage({Key? key, required List<Parking> parkings}) : super(key: key);
 
   @override
   ListPageState createState() => ListPageState();

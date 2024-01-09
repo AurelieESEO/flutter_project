@@ -4,7 +4,7 @@ import 'package:flutter_project/blocks/parking_cubit.dart';
 import 'package:flutter_project/services/preferences.dart';
 import 'package:flutter_project/ui/screens/my_home.dart';
 
-void main() {
+Future<void> main() async {
   // To use the SharePreferences before the runApp() method
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -12,7 +12,7 @@ void main() {
   final ParkingCubit parkingCubit = ParkingCubit(PreferencesRepository());
 
   // Chargement des entreprises
-  parkingCubit.loadParkings();
+  await parkingCubit.loadParkings();
 
   runApp(BlocProvider<ParkingCubit>(
     create: (_) => parkingCubit,
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Park me Angers',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
       home: const MyHome(),

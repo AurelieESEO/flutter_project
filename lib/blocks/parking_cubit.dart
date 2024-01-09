@@ -13,16 +13,14 @@ class ParkingCubit extends Cubit<List<Parking>> {
 
   /// Méthode pour charger la liste de parkings
   Future<void> loadParkings() async {
-    final parkings = await preferencesRepository.loadParkings();
-    if (parkings.isEmpty) {
+    //final parkings = await preferencesRepository.loadParkings();
+    //if (parkings.isEmpty) {
       // Si la liste est vide, on charge les parkings depuis l'API
       final List<Parking> parkings = await ParkingDescriptionService()
           .getAllParkingsDescription();
-      // print parkings list
-      emit([...parkings]);
       preferencesRepository.saveParkings(state);
-    }
-    print("parkings trouvés: " + parkings.toString());
+    //}
+    emit([...parkings]);
   }
 
   /// Méthode pour ajouter un parking

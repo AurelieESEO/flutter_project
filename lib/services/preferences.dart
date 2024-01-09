@@ -19,7 +19,6 @@ class PreferencesRepository {
 
     final listJson = prefs.getStringList('parkings') ?? [];
     for (final String json in listJson) {
-      print(jsonDecode(json));
       parkings.add(Parking.fromJson(jsonDecode(json)));
     }
 
