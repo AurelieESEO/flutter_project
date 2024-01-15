@@ -33,10 +33,10 @@ flutter pub get
 ### Api keys
 
 You can enter your own api keys in the following files:
-First api key for the api [https://openweathermap.org/api]
+First api key for the api https://openweathermap.org/api
 - lib/services/air_quality_service.dart
 - lib/services/meteo_service.dart
-Second api key for the api [https://data.angers.fr/pages/home/]
+Second api key for the api https://data.angers.fr/pages/home/
 - lib/services/parking_description_service.dart
 - lib/services/parking_disponbilities_service.dart
 
