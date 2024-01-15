@@ -62,25 +62,17 @@ class HomePageState extends State<HomePage> {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            snapshot.data!['results'][0]['sous_indice_2_polluant'].toString(),
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w100,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
                           Container(
                             width: 20,
                             height: 20,
                             decoration: BoxDecoration(
-                              color: getAirQualityColor(int.parse(snapshot.data!['results'][0]['sous_indice_2_polluant'])),
+                              color: getAirQualityColor(snapshot.data!['list'][0]['main']['aqi']),
                               shape: BoxShape.circle,
                             ),
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            getAirQuality(int.parse(snapshot.data!['results'][0]['sous_indice_2_polluant'])),
+                            getAirQuality(snapshot.data!['list'][0]['main']['aqi']),
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w100,
@@ -242,35 +234,35 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Color getAirQualityColor(int index) {
-    if (index <= 50) {
+  Color getAirQualityColor(int aqi) {
+    if (aqi <= 1) {
       return Colors.green;
-    } else if (index <= 100) {
+    } else if (aqi <= 2) {
       return Colors.yellow;
-    } else if (index <= 150) {
+    } else if (aqi <= 3) {
       return Colors.orange;
-    } else if (index <= 200) {
+    } else if (aqi <= 4) {
       return Colors.red;
-    } else if (index <= 300) {
+    } else if (aqi <= 5) {
       return Colors.purple;
     } else {
       return Colors.brown;
     }
   }
 
-  String getAirQuality(int index) {
-    if (index <= 50) {
-      return 'Bon';
-    } else if (index <= 100) {
-      return 'Moyen';
-    } else if (index <= 150) {
-      return 'Mauvais pour les sensibles';
-    } else if (index <= 200) {
-      return 'Mauvais';
-    } else if (index <= 300) {
-      return 'Très mauvais';
+  String getAirQuality(int aqi) {
+    if (aqi <= 1) {
+      return 'Bon 🍃';
+    } else if (aqi <= 2) {
+      return 'Moyen 😐';
+    } else if (aqi <= 3) {
+      return 'Mauvais pour les sensibles 🫁';
+    } else if (aqi <= 4) {
+      return 'Mauvais 😷';
+    } else if (aqi <= 5) {
+      return 'Très mauvais 🤮';
     } else {
-      return 'Dangereux';
+      return 'Dangereux ☣️';
     }
   }
 
