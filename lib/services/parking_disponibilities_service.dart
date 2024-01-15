@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 class ParkingDisponibilitiesService {
   final String endpointAllParkings =
       'https://data.angers.fr/api/explore/v2.1/catalog/'
-      'datasets/parking-angers/records?limit=20';
+      'datasets/parking-angers/records?'
+      'apikey=a1686bc00d990b65e56a2063d13aced481df200a6b7c2cfefc9f2cad&limit=20';
 
   ParkingDisponibilitiesService();
 
@@ -39,5 +40,6 @@ class ParkingDisponibilitiesService {
     } else {
       throw Exception('Failed to load air quality data');
     }
+    return null;
   }
 }

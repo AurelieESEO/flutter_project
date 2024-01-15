@@ -8,7 +8,8 @@ import '../models/parking.dart';
 class ParkingDescriptionService {
   final String endpointAllParkings =
       'https://data.angers.fr/api/explore/v2.1/catalog/'
-      'datasets/angers_stationnement/records?limit=20';
+      'datasets/angers_stationnement/records?apikey=a1686bc00d990b65e56a2063d13'
+      'aced481df200a6b7c2cfefc9f2cad&limit=20';
 
   ParkingDescriptionService();
 

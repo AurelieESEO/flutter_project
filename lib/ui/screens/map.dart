@@ -91,7 +91,7 @@ class _MapPageState extends State<MapPage> {
                 margin: const EdgeInsets.only(bottom: 80.0),
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: isRefreshComplete ? Colors.green : Colors.transparent,
+                  color: isRefreshComplete ? Colors.green : Colors.red,
                   borderRadius: BorderRadius.circular(12.0),
                   boxShadow: [
                     if (isRefreshComplete)
@@ -144,7 +144,6 @@ class _MapPageState extends State<MapPage> {
         point: parking.coordinates ?? LatLng(0, 0),
         builder: (ctx) => GestureDetector(
           onTap: () {
-            // Naviguer vers une nouvelle page lorsque le marker est cliqué
             Navigator.push(
               context,
               MaterialPageRoute(

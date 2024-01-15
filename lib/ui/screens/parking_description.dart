@@ -115,7 +115,7 @@ class ParkingDescriptionPage extends StatelessWidget {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        launchUrl(parking.url as Uri);
+                        launchUrl(Uri.parse(parking.url));
                       },
                   ),
                 ],
