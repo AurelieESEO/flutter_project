@@ -5,17 +5,19 @@ import 'package:http/http.dart' as http;
 // ParkingDisponibilitiesService class to get the available places for the
 // parkings
 class ParkingDisponibilitiesService {
-  // API url to get parkings disponibilities data
-  final String endpointAllParkings =
-      'https://data.angers.fr/api/explore/v2.1/catalog/'
-      'datasets/parking-angers/records?'
-      'apikey=a1686bc00d990b65e56a2063d13aced481df200a6b7c2cfefc9f2cad&limit=20';
+  // API key to get parkings disponibilities data
+  final String apiKey = 'a1686bc00d990b65e56a2063d13aced481df200a6b7c2cfefc9f2cad';
 
   // Constructor of the class ParkingDisponibilitiesService
   ParkingDisponibilitiesService();
 
   // Method to get parkings disponibilities data
   Future<Map<String, dynamic>> getAllParkingsDisponibilities() async {
+    // API url to get parkings disponibilities data
+    final String endpointAllParkings =
+        'https://data.angers.fr/api/explore/v2.1/catalog/'
+        'datasets/parking-angers/records?'
+        'apikey=$apiKey&limit=20';
     final response = await http.get(Uri.parse(endpointAllParkings));
 
     if (response.statusCode == 200) {
