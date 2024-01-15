@@ -14,6 +14,8 @@ class ParkingDescriptionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        foregroundColor: Colors.white,
         title: Text(parking.completeName),
       ),
       body: Padding(
