@@ -38,7 +38,7 @@ class MyHomeState extends State<MyHome> {
                 MapPage(
                     parkings: parkings,
                     parkingCubit: context.read<ParkingCubit>()),
-                HomePage(parkings: parkings),
+                HomePage(parkings: parkings, parkingCubit: context.read<ParkingCubit>()),
                 ListPage(parkings: parkings),
               ],
             );
