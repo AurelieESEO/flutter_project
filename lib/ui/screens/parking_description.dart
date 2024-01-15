@@ -91,7 +91,7 @@ class ParkingDescriptionPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildAvailabilityCard(
-                    'Nombre de places acutellement disponibres\n (Attention nous ne connaissons par leur type)',
+                    'Acutellement disponibres\n (Toutes places)',
                     parking.nbAvailableSpaces),
               ],
             ),
