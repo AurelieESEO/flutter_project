@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_project/blocks/parking_cubit.dart';
 import 'package:flutter_project/models/parking.dart';
+import 'package:flutter_project/ui/screens/parking_description.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapPage extends StatefulWidget {
@@ -141,21 +142,32 @@ class _MapPageState extends State<MapPage> {
         width: 80.0,
         height: 80.0,
         point: parking.coordinates ?? LatLng(0, 0),
-        builder: (ctx) => Column(
-          children: [
-            const Icon(
-              Icons.pin_drop,
-              color: Colors.lightBlue,
-              size: 40.0,
-            ),
-            Text(
-              parking.nbAvailableSpaces.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16.0,
+        builder: (ctx) => GestureDetector(
+          onTap: () {
+            // Naviguer vers une nouvelle page lorsque le marker est cliqué
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ParkingDescriptionPage(parking: parking),
               ),
-            ),
-          ],
+            );
+          },
+          child: Column(
+            children: [
+              const Icon(
+                Icons.pin_drop,
+                color: Colors.lightBlue,
+                size: 40.0,
+              ),
+              Text(
+                parking.nbAvailableSpaces.toString(),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }).toList();
