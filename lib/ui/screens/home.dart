@@ -17,8 +17,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -29,10 +28,9 @@ class HomePageState extends State<HomePage> {
               child: const Text(
                 'Bienvenue sur\nPark me Angers ! 🅿️🏰',
                 style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.cyan
-                ),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.cyan),
               ),
             ),
             const Divider(
@@ -48,11 +46,10 @@ class HomePageState extends State<HomePage> {
                 const Text(
                   ' Qualité de l\'air 🌬️ ',
                   style: TextStyle(
-                    backgroundColor: Colors.cyan,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white
-                  ),
+                      backgroundColor: Colors.cyan,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white),
                 ),
                 const SizedBox(height: 15),
                 FutureBuilder(
@@ -66,13 +63,15 @@ class HomePageState extends State<HomePage> {
                             width: 20,
                             height: 20,
                             decoration: BoxDecoration(
-                              color: getAirQualityColor(snapshot.data!['list'][0]['main']['aqi']),
+                              color: getAirQualityColor(
+                                  snapshot.data!['list'][0]['main']['aqi']),
                               shape: BoxShape.circle,
                             ),
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            getAirQuality(snapshot.data!['list'][0]['main']['aqi']),
+                            getAirQuality(
+                                snapshot.data!['list'][0]['main']['aqi']),
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w100,
@@ -94,11 +93,10 @@ class HomePageState extends State<HomePage> {
                 Text(
                   ' Météo 🌤️ ',
                   style: TextStyle(
-                    backgroundColor: Colors.cyan,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white
-                  ),
+                      backgroundColor: Colors.cyan,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white),
                 ),
               ],
             ),
@@ -138,7 +136,8 @@ class HomePageState extends State<HomePage> {
                                 children: [
                                   const SizedBox(width: 10),
                                   Text(
-                                    snapshot.data!['main']['feels_like'].toString(),
+                                    snapshot.data!['main']['feels_like']
+                                        .toString(),
                                     style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w100,
@@ -156,54 +155,56 @@ class HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        Text(
-                            getWeatherImage(snapshot.data!['weather'][0]['main']),
+                            ],
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            getWeatherImage(
+                                snapshot.data!['weather'][0]['main']),
                             style: const TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w100,
                             ),
-                        ),
-                        const SizedBox(width: 20),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  snapshot.data!['wind']['speed'].toString(),
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w100,
+                          ),
+                          const SizedBox(width: 20),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    snapshot.data!['wind']['speed'].toString(),
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w100,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 10),
-                                const Text(
-                                  'km/h',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w100,
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    'km/h',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w100,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                const SizedBox(width: 10),
-                                Text(
-                                  getWindDirection(snapshot.data!['wind']['deg']),
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w100,
-                                    fontStyle: FontStyle.italic,
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    getWindDirection(
+                                        snapshot.data!['wind']['deg']),
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w100,
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
+                                ],
+                              ),
+                            ],
+                          )
                         ],
                       )
                     ],

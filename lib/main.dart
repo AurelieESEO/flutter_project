@@ -11,9 +11,6 @@ Future<void> main() async {
   // Instanciation du Cubit
   final ParkingCubit parkingCubit = ParkingCubit(PreferencesRepository());
 
-  // // Chargement des entreprises
-  // await parkingCubit.loadParkings();
-
   runApp(BlocProvider<ParkingCubit>(
     create: (_) => parkingCubit,
     child: const MyApp(),
