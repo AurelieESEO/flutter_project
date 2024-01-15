@@ -4,6 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/parking.dart';
 
+// Page to display the description of a parking: its address, its tariffs,
+// its number of available spaces, etc.
 class ParkingDescriptionPage extends StatelessWidget {
   final Parking parking;
 
@@ -13,6 +15,7 @@ class ParkingDescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar with the name of the parking
       appBar: AppBar(
         backgroundColor: Colors.cyan,
         foregroundColor: Colors.white,
@@ -23,6 +26,8 @@ class ParkingDescriptionPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Displays the address, the maximum height, the accessibility
+            // hours, and the access way
             _buildSpanText(
                 'Adresse : ', '${parking.address} ${parking.postCode}'),
             _buildSpanText('Hauteur maximale : ', '${parking.maxHeight} cm'),
@@ -34,6 +39,7 @@ class ParkingDescriptionPage extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
+            // Displays the different tariffs in small boxes
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -45,6 +51,7 @@ class ParkingDescriptionPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
+            // Displays the different subscriptions in boxes
             const Text(
               'Abonnements :',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -60,6 +67,7 @@ class ParkingDescriptionPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
+            // Spaces section
             const Text(
               'Nombre de places :',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -67,6 +75,9 @@ class ParkingDescriptionPage extends StatelessWidget {
             const SizedBox(height: 8),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              // Displays the different spaces in boxes:
+              // Total, PMR, Motos & Bikes, Electric cars, 2 wheels electric,
+              // Car sharing, Carpooling
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,6 +98,7 @@ class ParkingDescriptionPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
+            // Displays the number of the spaces currently available
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -95,6 +107,7 @@ class ParkingDescriptionPage extends StatelessWidget {
                     parking.nbAvailableSpaces),
               ],
             ),
+            // Displays the link to get more information about the parking
             const SizedBox(height: 8),
             RichText(
               text: TextSpan(
@@ -128,6 +141,7 @@ class ParkingDescriptionPage extends StatelessWidget {
     );
   }
 
+  // Method to format the text with a bold part and a normal part
   Widget _buildSpanText(String boldText, String normalText) {
     return Column(children: [
       RichText(
@@ -149,6 +163,7 @@ class ParkingDescriptionPage extends StatelessWidget {
     ]);
   }
 
+  // Method to format a price card
   Widget _buildPriceCard(String label, double price) {
     return Card(
       color: Colors.blue[100],
@@ -168,6 +183,7 @@ class ParkingDescriptionPage extends StatelessWidget {
     );
   }
 
+  // Method to format a subscription card
   Widget _buildSubscriptionCard(String label, int? price) {
     return Card(
       color: Colors.red[100],
@@ -187,6 +203,7 @@ class ParkingDescriptionPage extends StatelessWidget {
     );
   }
 
+  // Method to format a card about the number of spaces
   Widget _buildSpacesCard(String label, int? value) {
     return SizedBox(
       height: 100, // Définir une hauteur fixe pour toutes les boîtes
@@ -213,6 +230,7 @@ class ParkingDescriptionPage extends StatelessWidget {
     );
   }
 
+  // Method to format the card about the number of available spaces
   Widget _buildAvailabilityCard(String label, int? value) {
     return SizedBox(
       height: 100,

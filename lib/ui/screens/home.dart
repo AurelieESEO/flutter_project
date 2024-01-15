@@ -8,6 +8,8 @@ import '../../blocks/parking_cubit.dart';
 import '../../services/air_quality_service.dart';
 import '../../services/meteo_service.dart';
 
+// Class to display the home page of the application (with the air quality,
+// the weather and the nearest parkings)
 class HomePage extends StatefulWidget {
   final List<Parking> parkings;
   final ParkingCubit parkingCubit;
@@ -22,18 +24,24 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   Position? _currentPosition;
 
+  // Init the widget and store the current position of the user
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
   }
 
+  // Method to get the current position of the user and store it in the
+  // "_currentPosition" variable
   Future<void> _getCurrentLocation() async {
     try {
+      // Get the current position of the user (latitude and longitude) with
+      // high accuracy
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
 
+      // Store the current position of the user in the "_currentPosition" attribute
       setState(() {
         _currentPosition = position;
       });
@@ -44,11 +52,14 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  // Method to get the nearest parkings from the current position of the user
   List<Parking> getNearestParkings(List<Parking> parkings, int count) {
+    // If the current position of the user is not available, return an empty list
     if (_currentPosition == null) {
       return [];
     }
 
+    // Sort the parkings by distance from the current position of the user
     parkings.sort((parking1, parking2) {
       double distance1 = Geolocator.distanceBetween(
         _currentPosition!.latitude,
@@ -66,6 +77,7 @@ class HomePageState extends State<HomePage> {
 
       return distance1.compareTo(distance2);
     });
+    // Return the "count" first parkings
     return parkings.take(count).toList();
   }
 
@@ -73,6 +85,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the 5 nearest parkings from the current position of the user
     List<Parking> nearestParkings = getNearestParkings(widget.parkings, 5);
 
     return Scaffold(
@@ -81,6 +94,7 @@ class HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              // Display the title of the application
               Container(
                 width: double.infinity,
                 color: Colors.white38,
@@ -101,6 +115,7 @@ class HomePageState extends State<HomePage> {
                 color: Colors.cyan,
               ),
               const SizedBox(height: 10),
+              // Display the air quality section
               Column(
                 children: [
                   const Text(
@@ -148,6 +163,7 @@ class HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 50),
+              // Display the weather section
               const Column(
                 children: [
                   Text(
@@ -277,6 +293,7 @@ class HomePageState extends State<HomePage> {
                 },
               ),
               const SizedBox(height: 50),
+              // Display the nearest parkings section
               const Column(
                 children: [
                   Text(
@@ -303,6 +320,8 @@ class HomePageState extends State<HomePage> {
                         color:
                             isGrayBackground ? Colors.grey[200] : Colors.white,
                         child: ListTile(
+                          // When tapping on a parking, display the parking
+                          // description page
                           onTap: () {
                             Navigator.push(
                               context,
@@ -328,6 +347,7 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  // Method to get the color associated to the air quality index
   Color getAirQualityColor(int aqi) {
     if (aqi <= 1) {
       return Colors.green;
@@ -344,6 +364,7 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  // Method to get the air quality text associated to the air quality index
   String getAirQuality(int aqi) {
     if (aqi <= 1) {
       return 'Bon 🍃';
@@ -360,6 +381,7 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  // Method to get the wind direction associated to the wind degree
   String getWindDirection(int deg) {
     if (deg <= 22.5) {
       return '⬇️ Nord';
@@ -382,6 +404,7 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  // Method to get the weather image associated to the weather
   String getWeatherImage(String weather) {
     switch (weather) {
       case 'Clear':

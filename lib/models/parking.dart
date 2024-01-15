@@ -1,6 +1,29 @@
 import 'package:flutter_project/models/tariffs.dart';
 import 'package:latlong2/latlong.dart';
 
+// Parking is a class that represents a parking with the following attributes:
+// - id: the id of the parking
+// - completeName: the complete name of the parking (with "Parking" at the start)
+// - name: the name of the parking (without "Parking" at the start)
+// - address: the address of the parking
+// - postCode: the post code of the parking
+// - url: the url of the parking for more information
+// - usersType: the type of users that can use the parking
+// - isFree: a boolean to know if the parking is free or not
+// - maxHeight: the max height for a vehicle to enter the parking
+// - coordinates: the coordinates of the parking (latitude and longitude)
+// - nbSpaces: the total number of spaces in the parking
+// - nbAvailableSpaces: the number of available spaces in the parking (all types)
+// - nbPmrSpaces: the number of available spaces for PMR (person with reduce mobility)
+// - nbElectricCarsSpaces: the number of available spaces for electric cars
+// - nbBikeSpaces: the number of available spaces for bikes
+// - nbMotoScootersSpaces: the number of available spaces for moto scooters
+// - nb2WheelsElectricSpaces: the number of available spaces for 2 wheels electric vehicles
+// - nbSharingCarsSpaces: the number of available spaces for sharing cars
+// - nbCarpoolSpaces: the number of available spaces for carpool
+// - tariffs: the tariffs of the parking : 1h, 2h, 3h, 4h, 24h, PMR, Resident, Non Resident
+// - accessibilityHours: the accessibility hours of the parking
+// - accessWay: the access way of the parking
 class Parking {
   String id;
   String completeName;
@@ -25,6 +48,7 @@ class Parking {
   String accessibilityHours;
   String accessWay;
 
+  // Constructor of the class Parking
   Parking(
       this.id,
       this.completeName,
@@ -49,6 +73,7 @@ class Parking {
       this.nbSharingCarsSpaces,
       this.nbCarpoolSpaces});
 
+  // Method to convert the Parking object to a JSON object
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -77,12 +102,12 @@ class Parking {
     };
   }
 
+  // Method to convert a JSON object from the shared preferences to a Parking object
   factory Parking.fromJson(Map<String, dynamic> json) {
     // check if json['tariffs'] is null or not
     final tariffs = json['tariffs'] != null
         ? Tariffs.fromJson(json['tariffs'])
         : Tariffs(0, 0, 0, 0, 0);
-
     LatLng coordinates = LatLng(json['latitude'], json['longitude']);
 
     return Parking(
@@ -110,6 +135,7 @@ class Parking {
         nbCarpoolSpaces: json['nbCarpoolSpaces']);
   }
 
+  // Method to convert a JSON object from the API to a Parking object
   factory Parking.fromApiJson(Map<String, dynamic> json) {
     Tariffs tariffs = Tariffs(json['tarif_1h'], json['tarif_2h'],
         json['tarif_3h'], json['tarif_4h'], json['tarif_24h'],

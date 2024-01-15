@@ -19,12 +19,15 @@ class MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar with the title of the application and a cyan background
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Park me Angers"),
         backgroundColor: Colors.cyan,
         foregroundColor: Colors.white,
       ),
+      // Body with the map, the home page and the list of parkings
+      // The body is a BlocBuilder to get the list of parkings from the bloc
       body: BlocBuilder<ParkingCubit, List<Parking>>(
         builder: (context, parkings) {
           if (parkings.isEmpty) {
@@ -35,18 +38,22 @@ class MyHomeState extends State<MyHome> {
             return IndexedStack(
               index: _currentIndex,
               children: [
+                // MapPage with the list of parkings and the bloc
                 MapPage(
                     parkings: parkings,
                     parkingCubit: context.read<ParkingCubit>()),
+                // HomePage with the list of parkings and the bloc
                 HomePage(
                     parkings: parkings,
                     parkingCubit: context.read<ParkingCubit>()),
+                // ListPage with the list of parkings
                 ListPage(parkings: parkings),
               ],
             );
           }
         },
       ),
+      // Bottom navigation bar with 3 items
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

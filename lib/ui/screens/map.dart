@@ -26,9 +26,10 @@ class MapPageState extends State<MapPage> {
     return Scaffold(
       body: Stack(
         children: [
+          // Map centered on Angers
           FlutterMap(
             options: MapOptions(
-              center: LatLng(47.473611, -0.554722),
+              center: LatLng(47.473611, -0.554722), // Angers coordinates
               zoom: 14.0,
             ),
             layers: [
@@ -37,11 +38,14 @@ class MapPageState extends State<MapPage> {
                     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 subdomains: ['a', 'b', 'c'],
               ),
+              // Markers for each parking with the number of available spaces
+              // under them
               MarkerLayerOptions(
                 markers: _buildMarkers(),
               ),
             ],
           ),
+          // Button to update the disponibilities manually
           Positioned(
             bottom: 16.0,
             right: 16.0,
@@ -55,6 +59,7 @@ class MapPageState extends State<MapPage> {
             ),
           ),
           if (isInfoVisible)
+            // Container to explain how to use the map page
             Positioned(
               bottom: 80.0,
               right: 16.0,
@@ -73,6 +78,7 @@ class MapPageState extends State<MapPage> {
                     ),
                   ],
                 ),
+                // Text to explain how to use the map page
                 child: const Text(
                   "Les disponibilités sont actualisées automatiquement toutes les 10 secondes."
                   "\nVous pouvez également actualiser manuellement en cliquant sur le bouton en bas de l'écran."
@@ -85,6 +91,7 @@ class MapPageState extends State<MapPage> {
               ),
             ),
           if (isRefreshComplete)
+            // Container to display a message when the disponibilities are updated
             Align(
               alignment: FractionalOffset.bottomCenter,
               child: Container(
@@ -114,10 +121,13 @@ class MapPageState extends State<MapPage> {
             ),
         ],
       ),
+      // Method called by the button to update the disponibilities manually
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _refreshDisponibilities();
         },
+        // Display a circular progress indicator when the disponibilities are
+        // updating
         child: isLoading
             ? const SizedBox(
                 width: 15.0,
@@ -136,6 +146,8 @@ class MapPageState extends State<MapPage> {
     );
   }
 
+  // Method to build the markers for each parking with the number of available
+  // spaces under them
   List<Marker> _buildMarkers() {
     List<Marker> markers = widget.parkings.map((parking) {
       return Marker(
@@ -173,19 +185,25 @@ class MapPageState extends State<MapPage> {
     return markers;
   }
 
+  // Method to update the disponibilities manually
   void _refreshDisponibilities() async {
+    // Set the loading indicator to true while the disponibilities are updating
     setState(() {
       isLoading = true;
       isRefreshComplete = false;
     });
 
+    // Update the disponibilities for each parking with the API call to the
+    // in the ParkingCubit
     await widget.parkingCubit.refreshDisponibilities();
 
+    // Set refresh complete to display the success message
     setState(() {
       isLoading = false;
       isRefreshComplete = true;
     });
 
+    // Display the success message for 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         isRefreshComplete = false;

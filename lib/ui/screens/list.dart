@@ -7,6 +7,11 @@ class ListPage extends StatelessWidget {
 
   const ListPage({Key? key, required this.parkings}) : super(key: key);
 
+  // Method to build the list of parkings with the number of available places
+  // for each parking
+  // Displays them with a different background color if the index is even
+  // or odd.
+  // Displays the parking description page when the user clicks on a parking
   @override
   Widget build(BuildContext context) {
     return Scaffold(
