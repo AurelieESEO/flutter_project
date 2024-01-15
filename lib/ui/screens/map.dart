@@ -13,10 +13,10 @@ class MapPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _MapPageState createState() => _MapPageState();
+  MapPageState createState() => MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class MapPageState extends State<MapPage> {
   bool isLoading = false;
   bool isInfoVisible = false;
   bool isRefreshComplete = false;
@@ -141,7 +141,7 @@ class _MapPageState extends State<MapPage> {
       return Marker(
         width: 80.0,
         height: 80.0,
-        point: parking.coordinates ?? LatLng(0, 0),
+        point: parking.coordinates,
         builder: (ctx) => GestureDetector(
           onTap: () {
             Navigator.push(

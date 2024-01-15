@@ -14,7 +14,6 @@ class PreferencesRepository {
   }
 
   Future<List<Parking>> loadParkings() async {
-    print('loadParkings called');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<Parking> parkings = [];
 

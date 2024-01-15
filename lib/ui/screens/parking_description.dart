@@ -49,7 +49,7 @@ class ParkingDescriptionPage extends StatelessWidget {
               'Abonnements :',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -158,9 +158,9 @@ class ParkingDescriptionPage extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text('$price€'),
           ],
         ),
@@ -177,9 +177,9 @@ class ParkingDescriptionPage extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(price != null ? '$price€' : 'Non disponible'),
           ],
         ),
@@ -188,7 +188,7 @@ class ParkingDescriptionPage extends StatelessWidget {
   }
 
   Widget _buildSpacesCard(String label, int? value) {
-    return Container(
+    return SizedBox(
       height: 100, // Définir une hauteur fixe pour toutes les boîtes
       child: Card(
         child: Padding(
@@ -200,10 +200,10 @@ class ParkingDescriptionPage extends StatelessWidget {
                 child: Text(
                   label,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(value != null ? '$value' : 'Non disponible'),
             ],
           ),
@@ -213,7 +213,7 @@ class ParkingDescriptionPage extends StatelessWidget {
   }
 
   Widget _buildAvailabilityCard(String label, int? value) {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Card(
         color: Colors.green[100],
