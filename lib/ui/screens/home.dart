@@ -125,7 +125,7 @@ class HomePageState extends State<HomePage> {
                               Row(
                                 children: [
                                   Text(
-                                    snapshot.data!['current']['temperature'].toString(),
+                                    snapshot.data!['main']['temp'].toString(),
                                     style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w100,
@@ -146,7 +146,7 @@ class HomePageState extends State<HomePage> {
                                 children: [
                                   const SizedBox(width: 10),
                                   Text(
-                                    snapshot.data!['current']['feelslike'].toString(),
+                                    snapshot.data!['main']['feels_like'].toString(),
                                     style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w100,
@@ -167,10 +167,12 @@ class HomePageState extends State<HomePage> {
                           ],
                         ),
                         const SizedBox(width: 20),
-                        Image.network(
-                          snapshot.data!['current']['weather_icons'][0],
-                          width: 75,
-                          height: 75,
+                        Text(
+                            getWeatherImage(snapshot.data!['weather'][0]['main']),
+                            style: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w100,
+                            ),
                         ),
                         const SizedBox(width: 20),
                         Column(
@@ -178,7 +180,7 @@ class HomePageState extends State<HomePage> {
                             Row(
                               children: [
                                 Text(
-                                  snapshot.data!['current']['wind_speed'].toString(),
+                                  snapshot.data!['wind']['speed'].toString(),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w100,
@@ -199,7 +201,7 @@ class HomePageState extends State<HomePage> {
                               children: [
                                 const SizedBox(width: 10),
                                 Text(
-                                  snapshot.data!['current']['wind_dir'].toString(),
+                                  getWindDirection(snapshot.data!['wind']['deg']),
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w100,
@@ -211,14 +213,6 @@ class HomePageState extends State<HomePage> {
                           ],
                         )
                         ],
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        getMessage(snapshot.data!['current']['is_day']),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w100,
-                        ),
                       )
                     ],
                   );
@@ -280,11 +274,62 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  String getMessage(String isDay) {
-    if (isDay == "yes") {
-      return 'Passez une bonne journée ! 🌞';
+  String getWindDirection(int deg) {
+    if (deg <= 22.5) {
+      return '⬇️ Nord';
+    } else if (deg <= 67.5) {
+      return '↙️ Nord-Est';
+    } else if (deg <= 112.5) {
+      return '⬅️ Est';
+    } else if (deg <= 157.5) {
+      return '↖️ Sud-Est';
+    } else if (deg <= 202.5) {
+      return '⬆️ Sud';
+    } else if (deg <= 247.5) {
+      return '↗️ Sud-Ouest';
+    } else if (deg <= 292.5) {
+      return '➡️ Ouest';
+    } else if (deg <= 337.5) {
+      return '↘️ Nord-Ouest';
     } else {
-      return 'Passez une bonne soirée ! 🌛';
+      return '⬇️ Nord';
+    }
+  }
+
+  String getWeatherImage(String weather) {
+    switch (weather) {
+      case 'Clear':
+        return '☀️';
+      case 'Clouds':
+        return '☁️';
+      case 'Rain':
+        return '🌧️';
+      case 'Snow':
+        return '❄️';
+      case 'Thunderstorm':
+        return '⛈️';
+      case 'Drizzle':
+        return '🌧️';
+      case 'Mist':
+        return '🌫️';
+      case 'Smoke':
+        return '🌫️';
+      case 'Haze':
+        return '🌫️';
+      case 'Dust':
+        return '🌫️';
+      case 'Fog':
+        return '🌫️';
+      case 'Sand':
+        return '🌫️';
+      case 'Ash':
+        return '🌫️';
+      case 'Squall':
+        return '🌫️';
+      case 'Tornado':
+        return '🌪️';
+      default:
+        return '☀️';
     }
   }
 }

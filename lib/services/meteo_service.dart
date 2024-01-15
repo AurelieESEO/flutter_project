@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MeteoService {
-  final String endpoint = 'http://api.weatherstack.com/current'
-      '?access_key=8d8127332c6e82e8583db36840ab8f78'
-      '&query=Angers';
+  final String endpoint = 'https://api.openweathermap.org/data/2.5/weather?q='
+      'Angers&appid=3d495a7ceaa23b7fd0d91b4d0140bd4d&units=metric';
 
   MeteoService();
 
